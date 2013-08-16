@@ -7,16 +7,17 @@
  */ 
 class Charset
 {
+	/** 
+    	* 
+    	* 数据库连接测试 
+    	* @param $str 给定的字符串
+    	* @return string 成功进行转换后的$str
+    	*                             
+    	*/
 	public function UTF82GBK($str)
 	{
 		$str = urlencode(iconv('UTF-8', 'GB2312', $str));
 		return $str;
-	}	
-	
-	public function unicode2utf8($str)
-	{
-
 	}
-	
 }
 ?>
