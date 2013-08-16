@@ -1,0 +1,14 @@
+Change log for Bootstrap Paginator
+----------------------------------
+
+Version 0.6.0     13/Jun/2013
+----------------------------------
+
+Fix the bug that will cause page out of range when updating the current page together with the total pages.
+
+Version 0.5.1   11/May/2013
+----------------------------------
+
+Update the item text in default function for page type first, prev, next, last to HTML Entities rather than plain text to make it work on IE series.
+
+
