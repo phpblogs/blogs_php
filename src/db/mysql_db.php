@@ -225,6 +225,17 @@ Class MysqlDB {
 		list($usec, $sec) = explode(" ", microtime());
 		return ((float)$usec + (float)$sec);
 	}
+	
+	//开始事务
+	public function begin(){
+         $null = mysql_query("START TRANSACTION", $this->link);
+      return mysql_query("BEGIN", $this->link_id);
+    }
+
+    // 事务回滚
+    public function rollback(){
+      return mysql_query("ROLLBACK", $this->link_id);
+    }
 }
 
 ?>
