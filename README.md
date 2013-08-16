@@ -11,11 +11,12 @@ A blog system developed by php which uses the bootstrap to show blogs
  2、页面的模块化：将页面进行分块，方便页面的管理和操作；同时也方便页面的widget和模块化；
  3、利用memcache对常见的数据进行缓存，减少服务器端的压力；
  4、加入log日志处理功能，方便对数据库操作的查看；
- 5、实现blog的配置化管理，一些常见的数据信息都配置在configure.php中。
- 6、......
+ 5、实现blog的配置化管理，一些常见的数据信息都配置在configure.php中；
+ 6、zen-cart和bootstrap思想；
+ 7、......
 
 
 
-具体扩展：
+扩展：
   1、增加blog的功能；
   2、......
