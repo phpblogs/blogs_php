@@ -1,6 +1,5 @@
 <?php
 	global $category_service,$articles_service,$user_service,$user_category_article_detail;	     
-	$page_setting = $articles_service->getPageSetting();	
 	
 ?>
 
@@ -172,6 +171,7 @@ if(empty($_GET["category_uid"]))
 			{
 				require_once(DIR_WS_PAGES."article_detail.php");
 			}	
+			$page_setting = $articles_service->getPageSetting(count($user_articles_detail));	
          ?>          
         </div><!--/span-->
       </div><!--/row-->      
@@ -200,5 +200,6 @@ if(empty($_GET["category_uid"]))
             }
         }
         $('#paginator').bootstrapPaginator(options);
+      
     </script>
 </html>

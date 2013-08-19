@@ -227,11 +227,12 @@
     * @return array 返回页面配置文件
     *                             
     */
-	public function getPageSetting()
+	public function getPageSetting($count)
 	{
 		$article_number = $this->getAllArticlesLength();//$this->getUserArticlesLength($uid);
 		$page_setting["numbers"] = $article_number;
-		$page_setting["pages"] = ceil($article_number/PAGESIZE);
+		
+		$page_setting["pages"] = ceil($count/PAGESIZE);
 		$page_setting["pagesize"] = PAGESIZE;
 		return $page_setting;
 	}
