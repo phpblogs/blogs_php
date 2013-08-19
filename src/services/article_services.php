@@ -235,5 +235,7 @@
 		$page_setting["pagesize"] = PAGESIZE;
 		return $page_setting;
 	}
+	
+	
 }
 ?>

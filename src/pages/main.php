@@ -1,7 +1,5 @@
 <?php
-	global $category_service,$articles_service,$user_service,$user_category_article_detail;	     
-	$page_setting = $articles_service->getPageSetting();	
-	
+	global $category_service,$articles_service,$user_service,$user_category_article_detail;
 ?>
 
 <!DOCTYPE html>
@@ -75,61 +73,60 @@
         	// 默认值
           if(empty($_GET))
  
+         {
+ 
+	        //$uid_session_get = "u1";
+	 
+	        //$cid_session_get = "all";       
+	
+	        
+	
+	        $_SESSION["user_uid"] = "";
+	 
+	        $_SESSION["category_uid"]= "all";  
+
+         }
+ 
+        else
+ 
         {
  
-        //$uid_session_get = "u1";
+	        if(empty($_GET["user_uid"]))
+	 
+	        {
+	 
+	        	$uid_session_get = $_SESSION["user_uid"];
+	 
+	        }
+	 
+	        else //第一次进入user所对应的session设置
+	 
+	        {
+	 
+		        $_SESSION["user_uid"]=$_GET["user_uid"];
+		 
+		        $uid_session_get = $_GET["user_uid"];
+	 
+	        }
  
-        //$cid_session_get = "all";       
-
+        } 
         
 
-        $_SESSION["user_uid"] = "";
+		if(empty($_GET["category_uid"]))
  
-        $_SESSION["category_uid"]= "all";  
-
+        {
+ 
+        	$cid_session_get = $_SESSION["category_uid"];
+ 
         }
  
         else
  
         {
  
-        if(empty($_GET["user_uid"]))
- 
-        {
- 
-        $uid_session_get = $_SESSION["user_uid"];
- 
-        }
- 
-        else //第一次进入user所对应的session设置
- 
-        {
- 
-        $_SESSION["user_uid"]=$_GET["user_uid"];
- 
-        $uid_session_get = $_GET["user_uid"];
- 
-        }
- 
-        }
- 
-        
-
-if(empty($_GET["category_uid"]))
- 
-        {
- 
-        $cid_session_get = $_SESSION["category_uid"];
- 
-        }
- 
-        else
- 
-        {
- 
-        $_SESSION["category_uid"]=$_GET["category_uid"];
- 
-        $cid_session_get = $_GET["category_uid"];
+	        $_SESSION["category_uid"]=$_GET["category_uid"];
+	 
+	        $cid_session_get = $_GET["category_uid"];
  
         } 
 
@@ -143,6 +140,9 @@ if(empty($_GET["category_uid"]))
 		
 			$aid = empty($_GET)?"a1":$_GET["article_uid"];
 			$article_detail = $articles_service->getArticleDetail($aid);
+			
+			// 获得分页相关信息
+			$page_setting = $articles_service->getPageSetting();//(count($user_category_article_detail));
        	
         	// 默认首页为：用户导航+article_list
         	if(empty($_GET))
