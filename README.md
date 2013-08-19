@@ -12,10 +12,12 @@ A blog system developed by php which uses the bootstrap to show blogs
  3、利用memcache对常见的数据进行缓存，减少服务器端的压力；
  4、加入log日志处理功能，方便对数据库操作的查看；
  5、实现blog的配置化管理，一些常见的数据信息都配置在configure.php中；
- 6、......
+ 6、解决变量保存及session跨页面传值；
+ 7、......
 
 
 
 扩展：
-  1、增加blog的功能；
-  2、......
+  1、增加blog的其它基本功能；
+  2、增加blog的定制化功能
+  3、......
