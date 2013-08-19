@@ -9,7 +9,7 @@ class Charset
 {
 	/** 
     	* 
-    	* 数据库连接测试 
+    	* UTF8转成GBK 
     	* @param $str 给定的字符串
     	* @return string 成功进行转换后的$str
     	*                             
