@@ -143,6 +143,8 @@
 			
 			// 获得分页相关信息
 			$page_setting = $articles_service->getPageSetting(count($user_category_article_detail));
+			$all_article = $articles_service->getAllArticles();
+			
        	
         	// 默认首页为：用户导航+article_list
         	if(empty($_GET))
@@ -155,7 +157,10 @@
         		//echo "load category_nav";
         		require("category_nav.php");
         	}	
-        	
+        	if(empty($_SESSION["user_uid"])&&$_SESSION["category_uid"]==="all"){
+        		$user_articles_detail=$all_article;
+        		  require_once(DIR_WS_PAGES."article_list.php"); 	
+        	}
         	// 加载article_list.php
         	if($_GET["category_uid"]||$_GET["user_uid"]||empty($_GET)) 
   			{
