@@ -130,7 +130,6 @@
 	        $cid_session_get = $_GET["category_uid"];
  
         } 
-
         
         	
         	$uid = $uid_session_get;
@@ -143,7 +142,7 @@
 			$article_detail = $articles_service->getArticleDetail($aid);
 			
 			// 获得分页相关信息
-			$page_setting = $articles_service->getPageSetting();//(count($user_category_article_detail));
+			$page_setting = $articles_service->getPageSetting(count($user_category_article_detail));
        	
         	// 默认首页为：用户导航+article_list
         	if(empty($_GET))
