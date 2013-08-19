@@ -23,7 +23,7 @@
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding-top: 60px;
+        padding-top: 100px;
         padding-bottom: 40px;
       }
       .sidebar-nav {
@@ -66,8 +66,8 @@
       </div>
     </div>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
+    <div class="container-fluid" >
+      <div class="row-fluid" >
         <?php         
         	$all_users = $user_service->getAllUsers();        	
         	$uid_session_get = empty($_GET["user_uid"])?$_GET["user_uid"]:$_SESSION["user_uid"];
