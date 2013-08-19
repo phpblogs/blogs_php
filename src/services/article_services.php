@@ -229,12 +229,14 @@
     */
 	public function getPageSetting($count)
 	{
-		$article_number = $this->getAllArticlesLength();//$this->getUserArticlesLength($uid);
-		$page_setting["numbers"] = $article_number;
+		//$article_number = $this->getAllArticlesLength();//$this->getUserArticlesLength($uid);
+		$page_setting["numbers"] = $count;//$article_number;
 		
 		$page_setting["pages"] = ceil($count/PAGESIZE);
 		$page_setting["pagesize"] = PAGESIZE;
 		return $page_setting;
 	}
+	
+	
 }
 ?>
