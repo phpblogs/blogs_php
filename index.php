@@ -14,7 +14,9 @@
 	   */
 	  require_once('src/configure.php');
 	}
-	$baseDir = dirname(__FILE__); // 获取当前dir路径		
+	$baseDir = dirname(__FILE__); // 获取当前dir路径	
+
+	session_start(); //session start位置
 ?>
 
 <?php	

@@ -2,7 +2,6 @@
 	global $category_service,$articles_service,$user_service,$user_category_article_detail;	     
 	$page_setting = $articles_service->getPageSetting();	
 	
-	session_start();
 ?>
 
 <!DOCTYPE html>
