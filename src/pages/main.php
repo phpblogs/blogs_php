@@ -1,5 +1,5 @@
 <?php
-	global $category_service,$articles_service,$user_service;	     
+	global $category_service,$articles_service,$user_service,$user_category_article_detail;	     
 	$page_setting = $articles_service->getPageSetting();	
 	
 ?>
@@ -73,42 +73,74 @@
         	$all_users = $user_service->getAllUsers();        	
         	$uid_session_get = empty($_GET["user_uid"])?$_GET["user_uid"]:$_SESSION["user_uid"];
         	// 默认值
-        	if(empty($_GET))
-        	{
-        		$uid_session_get = "u1";        		
-        	}
-        	else
-        	{
-        		if(empty($_GET["user_uid"]))
-        		{
-        			$uid_session_get = $_SESSION["user_uid"];
-        		}
-        		else
-        		{
-        			$_SESSION["user_uid"]=$_GET["user_uid"];
-        			$uid_session_get = $_GET["user_uid"];
-        		}
-        	}       	
-        	if(empty($_GET))
-        	{
-        		$cid_session_get = "all";        		
-        	}
-        	else
-        	{
-        		if(empty($_GET["category_uid"]))
-        		{
-        			$cid_session_get = $_SESSION["category_uid"];
-        		}
-        		else
-        		{
-        			$_SESSION["category_uid"]=$_GET["category_uid"];
-        			$cid_session_get = $_GET["category_uid"];
-        		}        			
-        	} 
+          if(empty($_GET))
+ 
+        {
+ 
+        //$uid_session_get = "u1";
+ 
+        //$cid_session_get = "all";       
+
+        
+
+        $_SESSION["user_uid"] = "";
+ 
+        $_SESSION["category_uid"]= "all";  
+
+        }
+ 
+        else
+ 
+        {
+ 
+        if(empty($_GET["user_uid"]))
+ 
+        {
+ 
+        $uid_session_get = $_SESSION["user_uid"];
+ 
+        }
+ 
+        else //第一次进入user所对应的session设置
+ 
+        {
+ 
+        $_SESSION["user_uid"]=$_GET["user_uid"];
+ 
+        $uid_session_get = $_GET["user_uid"];
+ 
+        }
+ 
+        }
+ 
+        
+
+if(empty($_GET["category_uid"]))
+ 
+        {
+ 
+        $cid_session_get = $_SESSION["category_uid"];
+ 
+        }
+ 
+        else
+ 
+        {
+ 
+        $_SESSION["category_uid"]=$_GET["category_uid"];
+ 
+        $cid_session_get = $_GET["category_uid"];
+ 
+        } 
+
+        
         	
         	$uid = $uid_session_get;
         	$user_category_detail = $category_service->getUserCategoryDetail($uid);
+        	
 			$user_articles_detail = $articles_service->getUserArticleDetail($uid);
+			$user_category_article_detail = $articles_service->getUserArticleCategoryDetail($uid_session_get,$cid_session_get);
+		
 			$aid = empty($_GET)?"a1":$_GET["article_uid"];
 			$article_detail = $articles_service->getArticleDetail($aid);
        	
@@ -128,7 +160,13 @@
         	if($_GET["category_uid"]||$_GET["user_uid"]||empty($_GET)) 
   			{
   				echo '$_GET["user_uid"]的值为:'.$uid_session_get.', $_GET["category_uid"]的值为:'.$cid_session_get."</br>";
-				require_once(DIR_WS_PAGES."article_list.php"); 		
+  				if($_SESSION["category_uid"]==="all"){	
+			    require_once(DIR_WS_PAGES."article_list.php"); 	
+  				}
+			    else {
+			   $user_articles_detail = $articles_service->getUserArticleCategoryDetail($_SESSION["user_uid"],$_SESSION["category_uid"]);
+			    require_once(DIR_WS_PAGES."article_list.php"); 
+			    }
   			}    	
 			if($_GET["article_uid"])
 			{
