@@ -4,9 +4,8 @@
 ?>
 
 <div class="span9">  
-          <?php
-          	echo "MMMMMM";
-          ?>
+           <h1><?php echo $article_detail[0]['article_name']?></h1>
+           <p><?php echo $article_detail[0]['article_content']?></p>
           </div><!--/row--> 
 
 
