@@ -196,11 +196,13 @@
 });
 
  
- function getArticleDetail(uid){	
+ function getArticleDetail(uid,more){	
 		//var path = <?php echo DIR_WS_PAGES?>;
-		 $.post("src/pages/article_detail.php?article_uid="+uid,{},function(result){				
-				 $(".span9").html(result);			
+	    
+		 $.post("src/pages/article_detail.php?article_uid="+uid+"&more="+more,{},function(result){
+			     $("#"+uid).html(result);
 				 });
+		
 	 	}
         var options = {
             currentPage: 1,
