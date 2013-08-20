@@ -195,13 +195,13 @@
              
 });
 
- 
- function getArticleDetail(uid){	
-		//var path = <?php echo DIR_WS_PAGES;?>;
-		//alert(path);
-		 $.post("src/pages/article_detail.php?article_uid="+uid,{},function(result){				
-				 $(".span9").html(result);			
-				 });
+ function getArticleDetail(uid,more){	
+		//var path = <?php echo DIR_WS_PAGES?>;
+	    
+		 $.post("src/pages/article_detail.php?article_uid="+uid+"&more="+more,{},function(result){
+			     $("#"+uid).html(result);				
+				 //$(".span9").html(result);			
+				 });	
 	 	}
         var options = {
             currentPage: 1,
