@@ -1,30 +1,64 @@
 <?php
-	global $user_articles_detail;
-/*	$uid = empty($_GET)?"u1":$_GET["user_uid"];
-	$user_articles_detail = $articles_service->getUserArticleDetail($uid);*/
+	session_start();
+	require_once("../configure.php");
+	require_once (DIR_WS_DB."mysql_db.php");
+	require_once (DIR_WS_SERVICES."article_services.php");
+?>
+<?php
+	$db = new MysqlDB();
+	$articles_service = new ArticleService();
+	
+	$per_page = PAGESIZE;
+	$page_num = $_GET["page"];
+	
+	if (!isset ($page_num)) {
+		$page_num = 1;
+	}
+	$uid = $_GET["uid"];
+	if (!isset ($uid)) {
+		$uid = "u1";
+	}
+	
+	$start_page = ($page_num -1) * $per_page;
+	$end_page = $page_num * $per_page;
+
+	//$user_articles_detail = $articles_service->getUserArticleDetail($uid, $start_page, $per_page);	
+	if(empty($_SESSION["user_uid"])){	
+		$user_articles_detail = $articles_service->getAllArticles($start_page,$per_page);	
+	}
+	else{
+		if($_SESSION["category_uid"]==="all"){
+			$user_articles_detail = $articles_service->getUserArticleDetail($_SESSION["user_uid"],$start_page,$per_page);
+		}
+		else{
+			$user_articles_detail = $articles_service->getUserArticleCategoryDetail($_SESSION["user_uid"],$_SESSION["category_uid"],$start_page,$per_page);
+		}
+	}
+	
+	$page_num = $_GET["page"];
 ?>
 
 <div class="span9">  
           <?php
-          	foreach($user_articles_detail as $key=>$values)
-   			{   	
-   				?>
+				foreach ($user_articles_detail as $key => $values) {
+			?>
    				 <div class="row-fluid">              
            		 	<div class="hero-unit">
-           		 		<h3><?php 
-           		 				echo $values["article_name"];          		 
-           		 				$_SESSION["article_uid"] = 	$values["article_uid"];// session操作
-           		 		?></h3>
-              			<p><?php 
-              					echo substr($values["article_content"],0,120);
-              					?></p>
-              			<p><a class="btn" href="?<?php echo "article_uid=".$values["article_uid"];?>">更多 &raquo;</a></p>
+           		 		<h3><?php
+
+								echo $values["article_name"];
+								$_SESSION["article_uid"] = $values["article_uid"]; // session操作
+							?></h3>
+              			<p><?php
+								echo substr($values["article_content"], 0, 120);
+							?></p>
+              			<p><a class="btn"  onclick='getArticleDetail("<?php echo $values["article_uid"]; ?>")' >更多 &raquo;</a></p>
             		</div>
             	 </div>
-   				<?php
-   			}          
-          ?>            
+   				<?php	
+					}
+				?>            
               <!--/span-->
             <!--/span-->            
             <div id="paginator"></div>
-          </div><!--/row-->  
+          </div><!--/row--> 
