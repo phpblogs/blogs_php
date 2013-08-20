@@ -42,17 +42,17 @@
           <?php
 				foreach ($user_articles_detail as $key => $values) {
 			?>
-   				 <div class="row-fluid">              
-           		 	<div class="hero-unit">
+   				 <div class="row-fluid" id="<?php echo $values["article_uid"]; ?>">              
+           		 	<div class="hero-unit" >
            		 		<h3><?php
 
 								echo $values["article_name"];
 								$_SESSION["article_uid"] = $values["article_uid"]; // session操作
 							?></h3>
-              			<p><?php
+              			<p class="<?php echo $values["article_uid"]; ?>"><?php
 								echo substr($values["article_content"], 0, 120);
 							?></p>
-              			<p><a class="btn"  onclick='getArticleDetail("<?php echo $values["article_uid"]; ?>")' >更多 &raquo;</a></p>
+              			<p><a class="btn"  onclick='getArticleDetail("<?php echo $values["article_uid"]; ?>","show")' >更多 &raquo;</a></p>
             		</div>
             	 </div>
    				<?php	
