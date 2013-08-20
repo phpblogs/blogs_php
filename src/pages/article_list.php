@@ -42,6 +42,7 @@
           <?php
 				foreach ($user_articles_detail as $key => $values) {
 			?>
+
    				 <div class="row-fluid" id="<?php echo $values["article_uid"]; ?>">              
            		 	<div class="hero-unit" >
 					
