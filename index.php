@@ -46,3 +46,7 @@
 <?php
 	require_once(DIR_WS_PAGES."main.php");
 ?>
+
+<?php
+
+?>
