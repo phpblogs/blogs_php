@@ -58,7 +58,7 @@
           <a class="brand" href="http://phpblog.com/">PHP Blog</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              	登录： <a href="" class="navbar-link">PHP Team</a>
+              	用户名： <a href="" class="navbar-link">PHP Team</a>
             </p>           
           </div><!--/.nav-collapse -->
         </div>
@@ -189,20 +189,18 @@
   <script type='text/javascript'>
  	var u = "<?php echo $uid; ?>";
  	$(document).ready(function(){               
-	//var path = <?php echo DIR_WS_PAGES?>;
-	//alert(path);
-    $(".content").load("src/pages/article_list.php");
-             
-});
-
- function getArticleDetail(uid,more){	
 		//var path = <?php echo DIR_WS_PAGES?>;
-	    
+		//alert(path);
+	    $(".content").load("src/pages/article_list.php");             
+	});
+
+ 	function getArticleDetail(uid,more){	
+		//var path = <?php echo DIR_WS_PAGES?>;	    
 		 $.post("src/pages/article_detail.php?article_uid="+uid+"&more="+more,{},function(result){
 			     $("#"+uid).html(result);				
 				 //$(".span9").html(result);			
 				 });	
-	 	}
+	 		}
         var options = {
             currentPage: 1,
             totalPages: <?php echo $page_setting["pages"]; ?>,            
@@ -216,6 +214,16 @@
               		 });                
             }
         }
-        $('#paginator').bootstrapPaginator(options);      
+        $('#paginator').bootstrapPaginator(options);  
+        
+        function changeCategoryActive(cid)
+        {
+        	//alert(cid);
+        	$name = $("#cat_list li a").html();//text(),val()
+        	var listItem = $('#'+cid);
+			//alert('Index: ' + $('#cat_list li').index(listItem));        	
+        	$('#'+cid).toggleClass('class');
+        	$('#'+cid).text("change");
+        }    
     </script>
 </html>
