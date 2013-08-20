@@ -197,7 +197,8 @@
 
  
  function getArticleDetail(uid){	
-		//var path = <?php echo DIR_WS_PAGES?>;
+		//var path = <?php echo DIR_WS_PAGES;?>;
+		//alert(path);
 		 $.post("src/pages/article_detail.php?article_uid="+uid,{},function(result){				
 				 $(".span9").html(result);			
 				 });
