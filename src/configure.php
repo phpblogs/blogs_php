@@ -18,7 +18,7 @@
 	 define('HTTPS_CATALOG_SERVER', 'https://phpblog.com');
 
 	// 工程目录配置文件
-	define('DIR_FS_CATALOG', 'D:/project/blog/');	
+	define('DIR_FS_CATALOG', 'E:/workspace/blog_exbiton/');	
 	define('DIR_WS_SRC', DIR_FS_CATALOG.'src/');
 	define('DIR_WS_DB', DIR_WS_SRC . 'db/');
 	define('DIR_WS_TESTS', DIR_WS_SRC . 'test/');
@@ -40,7 +40,7 @@
 	define('USE_PCONNECT', 'true'); // use persistent connections?
 	define('STORE_SESSIONS', 'db'); // use 'db' for best support, or '' for file-based storage
 	define('DB_LOG',1);
-	define('DB_LOG_PATH','./');	
+	define('DB_LOG_PATH',DIR_FS_CATALOG.'/');	
 	
 	// 页面文件配置
 	define("ROW_FLUID",3); //每行的rownumber
