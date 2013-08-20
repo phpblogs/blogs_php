@@ -18,6 +18,7 @@
 	 define('HTTPS_CATALOG_SERVER', 'https://phpblog.com');
 
 	// 工程目录配置文件
+
 	define('DIR_FS_CATALOG', 'D:/project/git/blogs_php/');	
 	define('DIR_WS_SRC', DIR_FS_CATALOG.'src/');
 	define('DIR_WS_DB', DIR_WS_SRC . 'db/');
