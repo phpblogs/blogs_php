@@ -167,12 +167,16 @@
         	
         	
         	?>
+        	
         	<div class = "content">        	
-  			</div> <!--content-->  		
+  			
+  			</div> <!--content--> 
+  			<div id="paginator" ></div> 		
         </div><!--/span-->
+         
       </div><!--/row-->    
-      <div id="paginator"></div>  
-      <hr>
+       
+      </br></br><hr>
       <footer>
         <p class="text-align:center;">&copy; Company 2013  &nbsp;&nbsp;&nbsp; PHP TEAM</p>
       </footer>
