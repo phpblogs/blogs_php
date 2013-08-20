@@ -43,7 +43,7 @@ else if($more ==="none")
 
 <div class="row-fluid" id="<?php echo $aid?>">
 	   <div class="hero-unit">
-           <h4><?php echo $article_detail[0]['article_name']?></h4>
+           <h4 ><a class="article_title" onclick='getArticleDetail("<?php echo $values["article_uid"]; ?>","show")' ><?php echo $article_detail[0]['article_name']?></a></h4>
            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo substr($article_detail[0]['article_content'], 0, 140)?></p>
 		   <p style="font-size:50%"><?php echo  $values["article_moddate"];?></p>
           <p><a class="btn"  onclick='getArticleDetail("<?php echo $aid; ?>","show")' >展开 &raquo;</a></p>
