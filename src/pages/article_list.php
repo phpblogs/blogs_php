@@ -44,8 +44,8 @@
 			?>
    				 <div class="row-fluid">              
            		 	<div class="hero-unit">
-						<!-- href="?<?php echo "article_uid=".$values["article_uid"];?>" -->
-           		 		<h4><a class="article_title" onclick='getArticleDetail("<?php echo $values["article_uid"]; ?>")' ><?php 
+						<!-- href="?<?php //echo "article_uid=".$values["article_uid"];?>" -->
+           		 		<h4><a class="article_title" href='javascript:getArticleDetail("<?php echo $values["article_uid"]; ?>")'  ><?php 
            		 				echo $values["article_name"];          		 
            		 				$_SESSION["article_uid"] = 	$values["article_uid"];// session操作
            		 		?></a></h4>
