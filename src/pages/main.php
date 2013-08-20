@@ -55,7 +55,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="">PHP Blog</a>
+          <a class="brand" href="http://phpblog.com/">PHP Blog</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
               	登录： <a href="" class="navbar-link">PHP Team</a>
@@ -195,14 +195,13 @@
              
 });
 
- 
  function getArticleDetail(uid,more){	
 		//var path = <?php echo DIR_WS_PAGES?>;
 	    
 		 $.post("src/pages/article_detail.php?article_uid="+uid+"&more="+more,{},function(result){
-			     $("#"+uid).html(result);
-				 });
-		
+			     $("#"+uid).html(result);				
+				 //$(".span9").html(result);			
+				 });	
 	 	}
         var options = {
             currentPage: 1,
