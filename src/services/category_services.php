@@ -25,13 +25,13 @@ class CategoryService
 	
 	/** 
     * 
-    * 从category表中，获取用户所有的类别信息 
+    * 从category表中，获取用户所有的类别列表 
     *     
     * @param string $uid 用户对应的唯一user_uid
     * @return array 返回指定用户的category数组
     *                             
     */ 
-	public function getUserCategory($uid)
+	public function getUserCategoryList($uid)
 	{
 		global $db,$charset;
 		$basic_sql = "select * from category where 1=1 ";		
@@ -39,8 +39,8 @@ class CategoryService
 		$user_category = $db->get_all($query);		
 		//var_dump($user_category);		
 		return $user_category;
-	}
-	
+	}	
+
 	/** 
     * 
     * 从视图user_category中，获取用户所有的类别信息 
@@ -60,7 +60,7 @@ class CategoryService
 	
 	/** 
     * 
-    * 获得用户category的明细，即：博客name与number及对应的
+    * 获得用户category的明细，即：博客name与number及对应的id
     *     
     * @param string $uid 用户对应的唯一user_uid
     * @return array 返回$user_category_detail数组
@@ -69,7 +69,7 @@ class CategoryService
 	public function getUserCategoryDetail($uid='u1')
 	{
 		global $articles_service;
-		$user_category = $this->getUserCategory($uid);					
+		$user_category = $this->getUserCategoryList($uid);					
 		$user_category_detail = array(); //user_category明细							
 		$article_number = 0;		
 		foreach($user_category as $key=>$value)
@@ -90,6 +90,25 @@ class CategoryService
 		$user_category_detail[] = $all;
 		//var_dump($category_detail);
 		return $user_category_detail;
+	}
+	
+	/** 
+    * 
+    * 从category表中，获取用户指定的类别信息 
+    *     
+    * @param string $uid 用户对应的唯一user_uid
+    * @param string $cid 类别对应的唯一category_uid
+    * @return array 返回指定用户的category数组
+    *                             
+    */ 
+	public function getUserCategory($uid,$cid){
+		global $db,$charset;
+		$basic_sql = "select * from category where 1=1 ";		
+		$query = $basic_sql." and user_uid = '" . $uid . "'"." and category_id = '".$cid."' order by category_adddate";						
+		$user_category = $db->get_all($query);		
+		//var_dump($user_category);		
+		return $user_category;
+		
 	}
 }
 ?>

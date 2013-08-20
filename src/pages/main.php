@@ -1,6 +1,5 @@
 <?php
-	global $category_service,$articles_service,$user_service,$user_category_article_detail;	     
-
+	global $category_service,$articles_service,$user_service,$user_category_article_detail;	  	 
 ?>
 
 <!DOCTYPE html>
@@ -72,9 +71,8 @@
         	$all_users = $user_service->getAllUsers();        	
         	$uid_session_get = empty($_GET["user_uid"])?$_GET["user_uid"]:$_SESSION["user_uid"];
         	// 默认值
-          if(empty($_GET))
- 
-         {
+            if(empty($_GET)) 
+            {
  
 	        //$uid_session_get = "u1";
 	 
@@ -121,8 +119,7 @@
  
         }
  
-        else
- 
+        else 
         {
  
 	        $_SESSION["category_uid"]=$_GET["category_uid"];
@@ -138,13 +135,24 @@
 			$user_articles_detail = $articles_service->getUserArticleDetail($uid);
 			$user_category_article_detail = $articles_service->getUserArticleCategoryDetail($uid_session_get,$cid_session_get);
 		
-			$aid = empty($_GET)?"a1":$_GET["article_uid"];
-			$article_detail = $articles_service->getArticleDetail($aid);
+		
+			
+			if(empty($_SESSION["user_uid"])){
+				
+				$count = $articles_service->getAllArticlesLength();	
+			}
+			else{
+				if($_SESSION["category_uid"]==="all"){
+					$count = $articles_service->getUserArticlesLength($_SESSION["user_uid"]);
+				}
+				else{
+					$count = $articles_service->getUserCategoryArticlesLength($_SESSION["user_uid"],$_SESSION["category_uid"]);
+				
+				}
+			}
 			
 			// 获得分页相关信息
-			$page_setting = $articles_service->getPageSetting(count($user_category_article_detail));
-			$all_article = $articles_service->getAllArticles();
-			
+			$page_setting = $articles_service->getPageSetting($count);		
        	
         	// 默认首页为：用户导航+article_list
         	if(empty($_GET))
@@ -153,34 +161,17 @@
         	}
         	// 后面就是：cat导航+article_list
         	else
-        	{
-        		//echo "load category_nav";
+        	{        		
         		require("category_nav.php");
         	}	
-        	if(empty($_SESSION["user_uid"])&&$_SESSION["category_uid"]==="all"){
-        		$user_articles_detail=$all_article;
-        		  require_once(DIR_WS_PAGES."article_list.php"); 	
-        	}
-        	// 加载article_list.php
-        	if($_GET["category_uid"]||$_GET["user_uid"]||empty($_GET)) 
-  			{
-  				echo '$_GET["user_uid"]的值为:'.$uid_session_get.', $_GET["category_uid"]的值为:'.$cid_session_get."</br>";
-  				if($_SESSION["category_uid"]==="all"){	
-			    require_once(DIR_WS_PAGES."article_list.php"); 	
-  				}
-			    else {
-			   $user_articles_detail = $articles_service->getUserArticleCategoryDetail($_SESSION["user_uid"],$_SESSION["category_uid"]);
-			    require_once(DIR_WS_PAGES."article_list.php"); 
-			    }
-  			}    	
-			if($_GET["article_uid"])
-			{
-				require_once(DIR_WS_PAGES."article_detail.php");
-			}	
-			$page_setting = $articles_service->getPageSetting(count($user_articles_detail));	
-         ?>          
+        	
+        	
+        	?>
+        	<div class = "content">        	
+  			</div> <!--content-->  		
         </div><!--/span-->
-      </div><!--/row-->      
+      </div><!--/row-->    
+      <div id="paginator"></div>  
       <hr>
       <footer>
         <p class="text-align:center;">&copy; Company 2013  &nbsp;&nbsp;&nbsp; PHP TEAM</p>
@@ -196,16 +187,34 @@
 
   <!-- detail information : http://bootstrappaginator.org/-->
   <script type='text/javascript'>
+ 	var u = "<?php echo $uid; ?>";
+ 	$(document).ready(function(){               
+	//var path = <?php echo DIR_WS_PAGES?>;
+	//alert(path);
+    $(".content").load("src/pages/article_list.php");
+             
+});
+
+ 
+ function getArticleDetail(uid){	
+		//var path = <?php echo DIR_WS_PAGES?>;
+		 $.post("src/pages/article_detail.php?article_uid="+uid,{},function(result){				
+				 $(".span9").html(result);			
+				 });
+	 	}
         var options = {
             currentPage: 1,
-            totalPages: <?php echo $page_setting["pages"]; ?>,
+            totalPages: <?php echo $page_setting["pages"]; ?>,            
             size:'normal',
             alignment:'right',
             onPageChanged: function(e,oldPage,newPage){
-                $('#alert-content').text("Current page changed, old: "+oldPage+" new: "+newPage);
+                $('#alert-content').text("Current page changed, old: "+oldPage+" new: "+newPage);              
+                var para ="page="+newPage+"&uid="+u;             
+                 $.post("src/pages/article_list.php?"+para,{page:newPage},function(result){              		
+    				$(".content").html(result);
+              		 });                
             }
         }
-        $('#paginator').bootstrapPaginator(options);
-      
+        $('#paginator').bootstrapPaginator(options);      
     </script>
 </html>

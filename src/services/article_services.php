@@ -44,14 +44,16 @@
 
 	/** 
     * 
-    * 获得数据库中所有的article
+    * 获得数据库中所有的article，并用分页效果显示
     *     
+    * @param int $start_page 开始页
+    * @param int $per_page 每页显示数目
     * @return array 返回$all_articles数组
     *                             
     */
-	public function getAllArticles() {
+	public function getAllArticles($start_page=0,$per_page=PAGESIZE) {
 		global $db,$charset;		
-		$basic_sql = "select * from article where 1=1";
+		$basic_sql = "select * from article where 1=1 limit ".$start_page.",".$per_page.";";
 		$query = $basic_sql;			
 		$all_articles = $db->get_all($query);
 		/*$i = 0;
@@ -108,7 +110,7 @@
     *                             
     */
 	public function getAllArticlesLength() {
-		$all_articles = $this->getAllArticles();
+		$all_articles = $this->getAllBlogArticles();
 		$len = 0;
 		foreach($all_articles as $key)
 		{
@@ -146,7 +148,7 @@
 	public function getUserArticlesLength($uid)
 	{
 		global $category_service;
-		$user_category = $category_service->getUserCategory($uid);								
+		$user_category = $category_service->getUserCategoryList($uid);								
 		$user_article_number = 0;		
 		foreach($user_category as $key=>$value)
 		{
@@ -162,15 +164,18 @@
     * select * from article a where a.category_uid in (select category_uid from category where user_uid = "u1")
     *     
     * @param string $uid 用户id
+    * @param int $start_page 开始页
+    * @param int $per_page 每页显示数目
     * @return array 返回用户$user_articles_detail的长度
     *                             
     */
-	public function getUserArticleDetail($uid='u1')
+	public function getUserArticleDetail($uid='u1',$start_page=0,$per_page=PAGESIZE)
 	{
 		global $category_service;		
 		global $db,$charset;
 		$basic_sql = "select * from article where 1=1";
-		$query = $basic_sql." and category_uid in ("."select category_uid from category where user_uid = '".$uid."')";				
+		$query = $basic_sql." and category_uid in ("."select category_uid from category where user_uid = '".$uid."') limit ".$start_page.",".$per_page.";";		
+		
 		$user_articles = $db->get_all($query); //使用get_one()，获取array长度时候有问题。因为组成的array格式有问题	
 										
 		$user_articles_detail = array(); //user_article明细	
@@ -183,15 +188,17 @@
 	
 	/** 
     * 
-    * 获得$uid用户，指定category目录下的articles明细
+    * 获得$uid用户指定category目录下的articles列表
     * select * from article a where a.category_uid in (select category_uid from category where user_uid = "u1")
     *     
     * @param string $uid 用户id
     * @param string $cid cetegory分类id
+    * @param int $start_page 开始页
+    * @param int $per_page 每页显示数目
     * @return array 返回用户$user_category_articles_detail的长度
     *                             
     */
-	public function getUserArticleCategoryDetail($uid='u1',$cid)
+	public function getUserArticleCategoryDetail($uid='u1',$cid,$start_page=0,$per_page=PAGESIZE)
 	{
 		global $category_service;		
 		global $db,$charset;
@@ -230,13 +237,48 @@
 	public function getPageSetting($count)
 	{
 		//$article_number = $this->getAllArticlesLength();//$this->getUserArticlesLength($uid);
-		$page_setting["numbers"] = $count;//$article_number;
-		
+		$page_setting["numbers"] = $count;
 		$page_setting["pages"] = ceil($count/PAGESIZE);
 		$page_setting["pagesize"] = PAGESIZE;
 		return $page_setting;
 	}
 	
+	/** 
+    * 
+    * 获得blog数据库中所有的article
+    *     
+    * @return array 返回$all_articles数组
+    *                             
+    */
+  	public function getAllBlogArticles() {
+		global $db,$charset;		
+		$basic_sql = "select * from article where 1=1";
+		$query = $basic_sql;			
+		$all_articles = $db->get_all($query);
+		return 	$all_articles;	
+	}
 	
+	/** 
+    * 
+    * 获得$uid用户指定category目录下的articles列表长度
+    * select * from article a where a.category_uid in (select category_uid from category where user_uid = "u1")
+    *     
+    * @param string $uid 用户id
+    * @param string $cid cetegory分类id
+    * @return array 返回用户$user_category_articles_detail的长度
+    *                             
+    */
+ 	public function getUserCategoryArticlesLength($uid,$cid)
+	{
+		global $category_service;
+		$user_category = $category_service->getUserCategory($uid,$cid);								
+		$user_article_number = 0;		
+		foreach($user_category as $key=>$value)
+		{
+			$len = $this->getArticlesByCategoryLength($value["category_uid"]);					
+			$user_article_number+=$len;
+		}
+		return $user_article_number;
+	}
 }
 ?>
