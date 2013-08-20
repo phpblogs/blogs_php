@@ -207,7 +207,7 @@
             currentPage: 1,
             totalPages: <?php echo $page_setting["pages"]; ?>,            
             size:'normal',
-            alignment:'center',
+            alignment:'center', //right
             onPageChanged: function(e,oldPage,newPage){
                 $('#alert-content').text("Current page changed, old: "+oldPage+" new: "+newPage);              
                 var para ="page="+newPage+"&uid="+u;             
