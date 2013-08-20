@@ -75,7 +75,8 @@ class CategoryService
 		foreach($user_category as $key=>$value)
 		{
 			$len = $articles_service->getArticlesByCategoryLength($value["category_uid"]);						
-			$tmp = array();			
+			$tmp = array();		
+			$tmp["cat_id"] = $value["category_id"];;	
 			$tmp["cat_uid"] = $value["category_uid"];
 			$tmp["cat_name"] = $value["category_name"];
 			$tmp["numbers"] = $len;
@@ -84,6 +85,7 @@ class CategoryService
 			$user_category_detail[] = $tmp;
 		}
 		$all = array();
+		$all["cat_id"] = "-1";
 		$all["cat_uid"] = "all";
 		$all["cat_name"] = "全部博客";	
 		$all["numbers"] = $article_number;//$articles_service->getUserArticlesLength($uid);
