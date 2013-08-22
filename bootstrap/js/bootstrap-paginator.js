@@ -574,15 +574,15 @@
 
             switch (type) {
             case "first":
-                return "Go to first page";
+                return "第一页";//"Go to first page";
             case "prev":
-                return "Go to previous page";
+                return "上一页";//"Go to previous page";
             case "next":
-                return "Go to next page";
+                return "下一页";// "Go to next page";
             case "last":
-                return "Go to last page";
+                return "最后一页";//"Go to last page";
             case "page":
-                return (page === current) ? "Current page is " + page : "Go to page " + page;
+                return (page === current) ? "当前页 " + page : "转到第 " + page+" 页";// (page === current) ? "Current page is " + page : "Go to page " + page;
             }
         },
         bootstrapTooltipOptions: {
