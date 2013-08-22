@@ -571,7 +571,6 @@
             }
         },
         tooltipTitles: function (type, page, current) {
-
             switch (type) {
             case "first":
                 return "第一页";//"Go to first page";
