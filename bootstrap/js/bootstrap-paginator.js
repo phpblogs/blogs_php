@@ -559,13 +559,13 @@
         itemTexts: function (type, page, current) {
             switch (type) {
             case "first":
-                return "&lt;&lt;";
+                return "&lt;&lt;";//"第一页";//"&lt;&lt;";
             case "prev":
-                return "&lt;";
+                return "&lt;";//"上一页";//"&lt;";
             case "next":
-                return "&gt;";
+                return "&gt;";//"下一页";//"&gt;";
             case "last":
-                return "&gt;&gt;";
+                return "&gt;&gt;";//"最后一页";//"&gt;&gt;";
             case "page":
                 return page;
             }
